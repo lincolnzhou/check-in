@@ -1,0 +1,29 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BASENAME=`basename ${DIR}`
+
+GOPATH=${PWD%src*}
+
+export GOPATH
+
+function build() {
+	cd $DIR/backend
+	go build
+}
+
+function rundocker() {
+	cd $DIR/backend/
+	./backend
+}
+
+function help() {
+	echo "$0 build"
+}
+
+if [ "$1" == "build" ]; then
+	build
+elif [ "$1" == "rundocker" ]; then
+	rundocker
+else 
+	help
+fi

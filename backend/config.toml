@@ -1,0 +1,12 @@
+Version = "1.0.0"
+
+ApiListen = ":1314"
+
+[redis]
+Host = "localhost:6379"
+MaxIdle = 3
+MaxActive = 3
+IdleTimeout = 240
+ReadTimeout = 15
+WriteTimeout = 15
+ConnectTimeout = 15
