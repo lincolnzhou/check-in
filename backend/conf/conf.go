@@ -13,6 +13,7 @@ type Config struct {
 	Version   string
 	ApiListen string
 	Redis     *Redis
+	StartTime string
 }
 
 type Redis struct {

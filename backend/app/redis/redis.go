@@ -9,7 +9,7 @@ func Set(key string, value string) error {
 	conn := conf.ConfigData.Redis.Pool.Get()
 	defer conn.Close()
 
-	_, err := conn.Do("set", key, value)
+	_, err := conn.Do("SET", key, value)
 	if err != nil {
 		return err
 	}
@@ -22,7 +22,25 @@ func Incr(key string) error {
 	conn := conf.ConfigData.Redis.Pool.Get()
 	defer conn.Close()
 
-	_, err := conn.Do("incr", key)
+	_, err := conn.Do("INCR", key)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// SetBit redis setbit
+func SetBit(key string, offset int, value bool) error {
+	conn := conf.ConfigData.Redis.Pool.Get()
+	defer conn.Close()
+
+	v := 0
+	if value {
+		v = 1
+	}
+
+	_, err := conn.Do("SETBIT", key, offset, v)
 	if err != nil {
 		return err
 	}
