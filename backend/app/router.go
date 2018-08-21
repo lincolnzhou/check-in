@@ -23,6 +23,15 @@ func InitRouter() {
 		return c.String(http.StatusOK, "check in system")
 	})
 
+	e.GET("/api/check_count", func(c echo.Context) error {
+		cacheKey := fmt.Sprintf("check_in:%d", 1)
+		count, err := redis.BitCount(cacheKey)
+		if err != nil {
+			log.Infof("router / redis bitcount error: %s", err.Error())
+		}
+		return SetJson(c, 0, count, "")
+	})
+
 	e.POST("/api/check", func(c echo.Context) error {
 		day := util.TimeDayDiff(util.TimeNow(), conf.ConfigData.StartTime)
 		if day >= 0 {
@@ -40,4 +49,14 @@ func InitRouter() {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+}
+
+func SetJson(c echo.Context, code int, data interface{}, msg string) error {
+	jsonData := map[string]interface{}{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	}
+
+	return c.JSON(http.StatusOK, jsonData)
 }

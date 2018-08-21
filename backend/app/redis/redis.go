@@ -1,6 +1,7 @@
 package redis
 
 import (
+	redigo "github.com/gomodule/redigo/redis"
 	"github.com/lincolnzhou/check-in/backend/conf"
 )
 
@@ -46,4 +47,17 @@ func SetBit(key string, offset int, value bool) error {
 	}
 
 	return nil
+}
+
+// BitCount redis bitcount
+func BitCount(key string) (int, error) {
+	conn := conf.ConfigData.Redis.Pool.Get()
+	defer conn.Close()
+
+	count, err := redigo.Int(conn.Do("BITCOUNT", key))
+	if err != nil {
+		return 0, err
+	}
+
+	return count, nil
 }
