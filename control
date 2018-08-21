@@ -16,14 +16,21 @@ function rundocker() {
 	./backend -c config.toml -logtostderr=true
 }
 
+function run() {
+	cd $DIR/backend
+	go run main.go -c config.toml -logtostderr=true
+}
+
 function help() {
-	echo "$0 build"
+	echo "$0 build|rundocker|run"
 }
 
 if [ "$1" == "build" ]; then
 	build
 elif [ "$1" == "rundocker" ]; then
 	rundocker
+elif [ "$1" == "run" ]; then
+	run
 else 
 	help
 fi

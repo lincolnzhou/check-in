@@ -26,8 +26,8 @@ func InitRouter() {
 	e.POST("/api/check", func(c echo.Context) error {
 		day := util.TimeDayDiff(util.TimeNow(), conf.ConfigData.StartTime)
 		if day >= 0 {
-			cache_key := fmt.Sprintf("check_in:%d", 1)
-			err := redis.SetBit(cache_key, day, true)
+			cacheKey := fmt.Sprintf("check_in:%d", 1)
+			err := redis.SetBit(cacheKey, day, true)
 			if err != nil {
 				log.Infof("router / redis setbit error: %s", err.Error())
 			}
@@ -36,5 +36,8 @@ func InitRouter() {
 		return c.String(http.StatusOK, "checked")
 	})
 
-	e.Start(conf.ConfigData.ApiListen)
+	err := e.Start(conf.ConfigData.ApiListen)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
