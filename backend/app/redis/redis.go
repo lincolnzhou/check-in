@@ -5,6 +5,19 @@ import (
 	"github.com/lincolnzhou/check-in/backend/conf"
 )
 
+// Get redis get
+func Get(key string) (string, error) {
+	conn := conf.ConfigData.Redis.Pool.Get()
+	defer conn.Close()
+
+	str, err := redigo.String(conn.Do("GET", key))
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
 // Set redis set
 func Set(key string, value string) error {
 	conn := conf.ConfigData.Redis.Pool.Get()
@@ -29,6 +42,19 @@ func Incr(key string) error {
 	}
 
 	return nil
+}
+
+// GetBits redis get bits
+func GetBits(key string) ([]byte, error) {
+	conn := conf.ConfigData.Redis.Pool.Get()
+	defer conn.Close()
+
+	bytes, err := redigo.Bytes(conn.Do("GET", key))
+	if err != nil {
+		return []byte{}, err
+	}
+
+	return bytes, nil
 }
 
 // SetBit redis setbit

@@ -3,6 +3,8 @@ package app
 import (
 	"fmt"
 	"net/http"
+	"strings"
+	"time"
 
 	log "github.com/golang/glog"
 	"github.com/labstack/echo"
@@ -21,6 +23,35 @@ func InitRouter() {
 		}
 
 		return c.String(http.StatusOK, "check in system")
+	})
+
+	e.GET("/api/check", func(c echo.Context) error {
+		day := util.TimeDayDiff(util.TimeNow(), conf.ConfigData.StartTime)
+		if day >= 0 {
+			cacheKey := fmt.Sprintf("check_in:%d", 1)
+			bytes, err := redis.GetBits(cacheKey)
+			if err != nil {
+				log.Infof("router / redis get error: %s", err.Error())
+			}
+
+			startTime, _ := time.Parse("2006-01-02 15:04:05", conf.ConfigData.StartTime)
+			ret := map[int64]int{}
+			for k, v := range bytes {
+				str := fmt.Sprintf("%08b", int(v))
+				for m, n := range strings.Split(str, "") {
+					if n == "1" {
+						fmt.Println(k*8 + m)
+						curTime := startTime.Unix() + int64((k*8+m-1)*24*3600)
+						fmt.Println(curTime)
+						ret[curTime] = 1
+					}
+				}
+			}
+
+			SetJson(c, 0, ret, "")
+		}
+
+		return c.String(http.StatusOK, "checked")
 	})
 
 	e.GET("/api/check_count", func(c echo.Context) error {
@@ -42,7 +73,7 @@ func InitRouter() {
 			}
 		}
 
-		return c.String(http.StatusOK, "checked")
+		return SetJson(c, 0, "", "")
 	})
 
 	err := e.Start(conf.ConfigData.ApiListen)
