@@ -12,6 +12,7 @@ function build() {
 }
 
 function rundocker() {
+	echo "rundocker start"
 	cd $DIR/backend/
 	./backend -c config.toml -logtostderr=true
 }
