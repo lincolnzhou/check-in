@@ -1,3 +1,5 @@
 .DS_Store
 *.swp
 backend/backend
+frontend/node_modules
+frontend/package-lock.json
