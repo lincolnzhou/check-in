@@ -11,7 +11,7 @@ ADD . .
 RUN ./control build
 
 FROM alpine:3.7
-MAINTAINER LincolnZhou "875199116@qq.com"
+MAINTAINER LincolnZhou "875199117@qq.com"
 ENV TZ='Asia/Shanghai' 
 RUN TERM=linux && export TERM
 USER root 
