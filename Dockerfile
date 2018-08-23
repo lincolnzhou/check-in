@@ -7,8 +7,14 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 
 WORKDIR /go/src/github.com/lincolnzhou/check-in
 
-ADD . .
+ADD ./backend ./backend
+ADD control .
 RUN ./control build
+
+FROM node:9.11.1-alpine as node
+ADD ./frontend/ /data/check-in 
+WORKDIR /data/check-in
+RUN npm install && npm run build
 
 FROM alpine:3.7
 MAINTAINER LincolnZhou "875199116@qq.com"
@@ -25,5 +31,6 @@ WORKDIR /data/check-in
 ADD control /data/check-in/control
 COPY --from=golang /go/src/github.com/lincolnzhou/check-in/backend/backend /data/check-in/backend/backend
 COPY --from=golang /go/src/github.com/lincolnzhou/check-in/backend/config.toml /data/check-in/backend/config.toml
+COPY --from=node /data/check-in/dist /data/check-in/backend/views
 
 CMD ["./control", "rundocker"]

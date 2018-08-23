@@ -22,7 +22,7 @@ func InitRouter() {
 			log.Infof("router / redis inrc error: %s", err.Error())
 		}
 
-		return c.String(http.StatusOK, "check in system")
+		return c.File("views/index.html")
 	})
 
 	e.GET("/api/check", func(c echo.Context) error {

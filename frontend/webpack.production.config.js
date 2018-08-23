@@ -60,6 +60,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: __dirname + "/app/index.tmpl.html"
 		}),
+		new webpack.optimize.OccurrenceOrderPlugin(),
 		new ExtractTextPlugin({
 			filename: '[hash:8].css'
 		}),
