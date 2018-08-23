@@ -12,7 +12,7 @@ ADD control .
 RUN ./control build
 
 FROM node:9.11.1-alpine as node
-ADD ./frontend/ /data/check-in 
+ADD ./frontend /data/check-in/frontend 
 WORKDIR /data/check-in
 RUN npm install && npm run build
 
