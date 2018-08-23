@@ -6,18 +6,19 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 let pathsToClean = [
   'dist',
   'build',
-	'public'
+	"static",
+	"views",
 ]
 
 module.exports = {
 	devtool: 'eval-source-map',
 	entry: __dirname + "/app/main.js",
 	output: {
-		path: __dirname + "/dist",
+		path: __dirname + "/static",
 		filename: "bundle-[hash:8].js"
 	},
 	devServer: {
-		contentBase: "./public", // 本地页面目录
+		contentBase: "./views", // 本地页面目录
 		historyApiFallback: true, // 不跳转
 		inline: true, // 实时刷新
 	},
@@ -58,6 +59,7 @@ module.exports = {
 	plugins: [
 		new webpack.BannerPlugin("版权所有，翻版必究"),
 		new HtmlWebpackPlugin({
+			filename: __dirname + "/views/index.html",
 			template: __dirname + "/app/index.tmpl.html"
 		}),
 		new ExtractTextPlugin({

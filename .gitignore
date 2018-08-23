@@ -3,3 +3,6 @@
 backend/backend
 frontend/node_modules
 frontend/package-lock.json
+frontend/static
+frontend/public
+frontend/dist
