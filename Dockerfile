@@ -13,7 +13,7 @@ RUN ./control build
 
 FROM node:9.11.1-alpine as node
 ADD ./frontend /data/check-in/frontend 
-WORKDIR /data/check-in
+WORKDIR /data/check-in/frontend
 RUN npm install && npm run build
 
 FROM alpine:3.7
