@@ -31,6 +31,7 @@ WORKDIR /data/check-in
 ADD control /data/check-in/control
 COPY --from=golang /go/src/github.com/lincolnzhou/check-in/backend/backend /data/check-in/backend/backend
 COPY --from=golang /go/src/github.com/lincolnzhou/check-in/backend/config.toml /data/check-in/backend/config.toml
-COPY --from=node /data/check-in/dist /data/check-in/backend/views
+COPY --from=node /data/check-in/index.html /data/check-in/backend/views/index.html
+COPY --from=node /data/check-in/static /data/check-in/backend/static
 
 CMD ["./control", "rundocker"]
