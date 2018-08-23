@@ -16,6 +16,7 @@ import (
 // InitRouter init router
 func InitRouter() {
 	e := echo.New()
+	e.Static("/static", "static")
 	e.GET("/", func(c echo.Context) error {
 		err := redis.Incr("hit:index")
 		if err != nil {
