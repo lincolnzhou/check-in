@@ -18,9 +18,11 @@ module.exports = {
 		filename: "bundle-[hash:8].js",
 	},
 	devServer: {
-		contentBase: "./views", // 本地页面目录
+		contentBase: ".", // 本地页面目录
 		historyApiFallback: true, // 不跳转
 		inline: true, // 实时刷新
+		open: false,
+		overlay: true,
 	},
 	module: {
 		rules:[
@@ -59,7 +61,7 @@ module.exports = {
 	plugins: [
 		new webpack.BannerPlugin("版权所有，翻版必究"),
 		new HtmlWebpackPlugin({
-			filename: __dirname + "/index.html",
+			filename: __dirname + "/static/index.html",
 			template: __dirname + "/app/index.tmpl.html"
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),

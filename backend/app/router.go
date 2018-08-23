@@ -16,14 +16,14 @@ import (
 // InitRouter init router
 func InitRouter() {
 	e := echo.New()
-	e.Static("/static", "static")
+	e.Static("/", "static")
 	e.GET("/", func(c echo.Context) error {
 		err := redis.Incr("hit:index")
 		if err != nil {
 			log.Infof("router / redis inrc error: %s", err.Error())
 		}
 
-		return c.File("views/index.html")
+		return c.File("static/index.html")
 	})
 
 	e.GET("/api/check", func(c echo.Context) error {
