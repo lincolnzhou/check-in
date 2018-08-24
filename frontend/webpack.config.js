@@ -14,10 +14,13 @@ let cleanOptions = {
 
 module.exports = {
 	devtool: 'eval-source-map',
-	entry: __dirname + "/app/main.js",
+	entry: {
+		main: __dirname + "/app/main.js",
+		"cal-heatmap": "cal-heatmap/cal-heatmap",
+	},
 	output: {
 		path: path.resolve(__dirname, "../backend/static"),
-		filename: "js/[chunkhash:8].js"
+		filename: "js/[name].js"
 	},
 	devServer: {
 		contentBase: ".", // 本地页面目录
@@ -36,40 +39,32 @@ module.exports = {
 				exclude: /node_modules/
 			},
 			{
-				test: /\.css$/,
+				test: /\.less$/,
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
-					use: [
-						{
-							loader: 'css-loader',
+					use: [{
+							loader: "css-loader",
 							options: {
-								sourceMap: true,
 								importLoaders: 1,
-								modules: true,
-								camelCase: true,
-								localIdentName: '[name]_[local]_[hash:base64:5]',
-								minimize: true
 							},
-						},
-						{
-							loader: 'postcss-loader'
-						}
-					]
+						}, {
+							loader: "less-loader"
+						}],
 				}),	
 				exclude: /node_modules/,
-			}
+			},
+			{ test: /\.css$/, loader: "style-loader!css-loader"},
 		]
 	},
 	plugins: [
-		new webpack.BannerPlugin("版权所有，翻版必究"),
 		new HtmlWebpackPlugin({
 			filename: path.resolve(__dirname, "../backend/static/index.html"),
 			template: __dirname + "/app/index.tmpl.html"
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new ExtractTextPlugin({
-			filename: 'css/[hash:8].css'
+			filename: 'css/[name].css'
 		}),
 		new CleanWebpackPlugin(pathsToClean, cleanOptions),
-	]
+	],
 };
