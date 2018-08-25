@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import Header from './header.jsx';
+import Footer from './footer.jsx';
 import Greeter from './greeter.jsx';
 import Calendar from './calendar.jsx';
 
@@ -16,6 +17,7 @@ class App extends Component {
 						<Greeter />
 						<Calendar />
 					</div>
+					<Footer />
 				</div>
 		);
 	}

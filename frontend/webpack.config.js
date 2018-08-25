@@ -33,7 +33,7 @@ module.exports = {
 					changeOrigin: true,
 				 	secure: false,
 				}
-		}
+		},
 	},
 	module: {
 		rules:[
@@ -66,7 +66,8 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: path.resolve(__dirname, "../backend/static/index.html"),
-			template: __dirname + "/app/index.tmpl.html"
+			template: __dirname + "/app/index.tmpl.html",
+			favicon: './app/favicon.ico',
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new ExtractTextPlugin({
