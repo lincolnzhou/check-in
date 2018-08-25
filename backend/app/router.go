@@ -26,6 +26,15 @@ func InitRouter() {
 		return c.File("static/index.html")
 	})
 
+	e.GET("/api/hit_count", func(c echo.Context) error {
+		count, err := redis.Get("hit:index")
+		if err != nil {
+			log.Infof("router / redis get error: %s", err.Error())
+		}
+
+		return SetJson(c, 0, count, "")
+	})
+
 	e.GET("/api/check", func(c echo.Context) error {
 		day := util.TimeDayDiff(util.TimeNow(), conf.ConfigData.StartTime)
 		if day >= 0 {
@@ -41,18 +50,16 @@ func InitRouter() {
 				str := fmt.Sprintf("%08b", int(v))
 				for m, n := range strings.Split(str, "") {
 					if n == "1" {
-						fmt.Println(k*8 + m)
 						curTime := startTime.Unix() + int64((k*8+m-1)*24*3600)
-						fmt.Println(curTime)
 						ret[curTime] = 1
 					}
 				}
 			}
 
-			SetJson(c, 0, ret, "")
+			return SetJson(c, 0, ret, "")
 		}
 
-		return c.String(http.StatusOK, "checked")
+		return SetJson(c, 0, nil, "")
 	})
 
 	e.GET("/api/check_count", func(c echo.Context) error {
