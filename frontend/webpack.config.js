@@ -27,6 +27,13 @@ module.exports = {
 		inline: true, // 实时刷新
 		open: false,
 		overlay: true,
+		proxy: {
+			'api/*': {
+					target: "http://localhost:1314",
+					changeOrigin: true,
+				 	secure: false,
+				}
+		}
 	},
 	module: {
 		rules:[
