@@ -44,7 +44,7 @@ class Calendar extends Component {
 		return (
 			<div class="sdui-container">
 				<div class="operate">
-					<button class="btn">签到</button>
+					<button class="btn btn-primary">签到</button>
 				</div>
 				<div class="heatmap"></div>
 			</div>
