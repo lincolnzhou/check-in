@@ -42,7 +42,11 @@ class Calendar extends Component {
 
 	render() {
 		return (
-			<div class="sdui-container heatmap">
+			<div class="sdui-container">
+				<div class="operate">
+					<button class="btn">签到</button>
+				</div>
+				<div class="heatmap"></div>
 			</div>
 		);
 	}
