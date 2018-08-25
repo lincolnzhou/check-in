@@ -16,7 +16,6 @@ module.exports = {
 	devtool: 'eval-source-map',
 	entry: {
 		main: __dirname + "/app/main.js",
-		"cal-heatmap": "cal-heatmap/cal-heatmap",
 	},
 	output: {
 		path: path.resolve(__dirname, "../backend/static"),
@@ -54,6 +53,7 @@ module.exports = {
 				exclude: /node_modules/,
 			},
 			{ test: /\.css$/, loader: "style-loader!css-loader"},
+			{ test: /\.(png|jpg)$/, loader: "url-loader?limit=8192"},
 		]
 	},
 	plugins: [

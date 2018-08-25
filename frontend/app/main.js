@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import Greeter from './greeter';
 
 import './sdui.less';
-//import "calHeatmap";
+import './app.less';
 require("cal-heatmap/cal-heatmap.css");
 
 import CalHeatMap from 'cal-heatmap';
@@ -14,16 +14,19 @@ var dt = new Date();
 dt.setDate(dt.getDate() + 1);
 cal.init({
 	data: JSON.parse(datas),
-	itemSelector: ".sdui-body__heatmap",
+	itemSelector: ".heatmap",
 	domain: "month",
 	subDomain: "x_day",
 	subDomainTextFormat: "%d",
 	cellSize: 25,
+	range: 6,
+	domainMargin: [0, 10, 0, 0],
 	domainDynamicDimension: false,
 	label: {
 			position: "top"
 		},
-	start: new Date(2018, 1, 11),
+	start: new Date(2018, 6, 11),
 	highlight: ["now", dt],
+	tooltip: true,
 });
-render(<Greeter />, document.getElementById('sdui-body__greeter'));
+render(<Greeter />, document.getElementById('greeter'));
