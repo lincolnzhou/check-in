@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { getHitCount } from "./server/index.js";
+import { getHitCount } from "./server";
 
 import style from "./greeter.less";
 

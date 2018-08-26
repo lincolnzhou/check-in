@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import axios from "axios";
 import CalHeatMap from 'cal-heatmap';
+import { getCheckList, postCheck } from "./server";
 
 require("cal-heatmap/cal-heatmap.css");
 
@@ -10,8 +10,7 @@ class Calendar extends Component {
 	}
 
 	componentWillMount() {
-		axios.get('/api/check')
-		.then(function (response) {
+		getCheckList().then(function (response) {
 			var cal = new CalHeatMap();
 			var dt = new Date();
 			cal.init({
@@ -40,11 +39,19 @@ class Calendar extends Component {
 	componentDidMount() {
 	}
 
+	postCheck() {
+		postCheck().then(function (response) {
+
+		}).catch(function(error) {
+			console.log(error)
+		})
+	}
+
 	render() {
 		return (
 			<div class="sdui-container">
 				<div class="operate">
-					<button class="btn btn-primary">签到</button>
+					<button class="btn btn-primary" onClick={this.postCheck}>签到</button>
 				</div>
 				<div class="heatmap"></div>
 			</div>
