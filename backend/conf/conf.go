@@ -108,6 +108,9 @@ func InitConfig(conf string) (err error) {
 	if os.Getenv("REDIS_HOST") != "" {
 		ConfigData.Redis.Host = os.Getenv("REDIS_HOST")
 	}
+	if os.Getenv("REDIS_PWD") != "" {
+		ConfigData.Redis.Password = os.Getenv("REDIS_PWD")
+	}
 
 	ConfigData.Redis.Pool = NewPool(ConfigData.Redis)
 	return err
