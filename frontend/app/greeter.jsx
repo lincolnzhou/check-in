@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from "axios";
+import { getHitCount } from "./server/index.js";
 
 import style from "./greeter.less";
 
@@ -13,8 +13,7 @@ class Greeter extends Component {
 
 	componentWillMount() {
 		var that = this;
-		axios.get('/api/hit_count')
-		.then(function (response) {
+		getHitCount().then(function (response) {
 			that.setState({
 				hit: response.data.data,
 			})
