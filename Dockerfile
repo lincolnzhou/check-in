@@ -23,10 +23,10 @@ RUN TERM=linux && export TERM
 USER root 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
     apk update && \
-    apk add bash && \ 
+    apk add bash tzdata && \ 
     echo "Asia/Shanghai" > /etc/timezone && \
+	cp -r -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     rm -rf /var/cache/apk/*   /tmp/*
-
 WORKDIR /data/check-in
 ADD control /data/check-in/control
 COPY --from=golang /go/src/github.com/lincolnzhou/check-in/backend/backend /data/check-in/backend/backend
