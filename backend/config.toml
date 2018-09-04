@@ -4,6 +4,8 @@ ApiListen = ":1314"
 
 StartTime = "2018-08-01 00:00:00"
 
+Debug = true
+
 [redis]
 Host = "localhost:6379"
 MaxIdle = 3

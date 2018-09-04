@@ -14,6 +14,7 @@ type Config struct {
 	ApiListen string
 	Redis     *Redis
 	StartTime string
+	Debug     bool
 }
 
 type Redis struct {
